@@ -54,7 +54,6 @@ if assign_overload.patch_and_reload_module():
         a = T()
         a = 10 # a will keep holding the T object
 
-
     if __name__ == "__main__":
         main()
 ```
