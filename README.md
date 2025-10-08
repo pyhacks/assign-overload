@@ -2,6 +2,9 @@
 This library makes it possible to overload assignment (=) operator. Inspired by [assign](https://github.com/RyanKung/assign).
 Along with other things, main difference from that library is [assign](https://github.com/RyanKung/assign) calls the overloaded operator of the right hand side while this library calls of the left hand side.
 
+# Installation
+```pip install assign-overload```
+
 # How To Use
 First you need to overload the assignment operator using the function ```_assign_```:
 ```python
