@@ -21,9 +21,11 @@ class T:
         print(f"called with {value}")
         return self
 
+
 def main():
     a = T()
     a = 10 # a will keep holding the T object
+
 
 if assign_overload.patch_and_reload_module():
     if __name__ == "__main__":
@@ -50,9 +52,11 @@ if assign_overload.patch_and_reload_module():
             print(f"called with {value}")
             return self
 
+
     def main():
         a = T()
         a = 10 # a will keep holding the T object
+
 
     if __name__ == "__main__":
         main()
