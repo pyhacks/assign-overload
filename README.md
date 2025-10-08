@@ -29,7 +29,7 @@ if assign_overload.patch_and_reload_module():
     if __name__ == "__main__":
         main()
 ```
-This function will find and modify the current module's source code then execute it. 
+This function will find and modify the current module's source code, replacing right hand side of assignments with calls to ```_assign_```, then execute the modified code. 
 Once called, this function will introduce a new global variable to the current module: ```modified_source```. 
 This variable will be accessible while both executing the original module and modified module. 
 It represents the source code of the modified module.
