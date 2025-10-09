@@ -71,3 +71,7 @@ This function should be called even if this module isn't the ```__main__``` modu
 This function should be called once. Consecutive calls doesn't modify and execute the source code again. 
 Lastly, this function will introduce 2 other global varriables to the current module: ```patched``` and ```executing_patch```.
 These variables are internally used by the library and they are documented here only to prevent the user from changing them.
+
+# Limitations
+Unpacking during assignment and the walrus operator are not supported. 
+If you attempt to call assign_overload.patch_and_reload_module() from a module using these features, you will face an error.
