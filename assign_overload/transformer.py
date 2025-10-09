@@ -131,8 +131,7 @@ class AssignTransformer(ast.NodeTransformer):
                               orelse = [])
         else:
             new_node = node
-        return new_node
-    
+        return new_node   
 
     def visit_Assign(self, node):       
         new_node = self.gen_assign_checker_ast(node)
@@ -145,3 +144,7 @@ class AssignTransformer(ast.NodeTransformer):
         ast.copy_location(new_node, node)
         ast.fix_missing_locations(new_node)
         return new_node
+
+    def visit_NamedExpr(self, node):       
+        raise RuntimeError("walrus operator is not supported")
+    
