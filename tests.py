@@ -13,6 +13,10 @@ class A:
     a = T(10)
 
 
+class B:
+    __slots__ = ["a"]
+
+    
 def test1():
     global b
     #a, b = T(), T()
@@ -31,11 +35,20 @@ def test2():
     del a.a
     print(a.a)
 
-    
+
+def test3():
+    b = B()
+    b.a = T(10)
+    b.a = "abc"
+    print(b.a)
+
+
 def main():
     test1()
     print()
     test2()
+    print()
+    test3()
 
 
 if assign_overload.patch_and_reload_module():
