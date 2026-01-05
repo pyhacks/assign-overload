@@ -31,30 +31,15 @@ class AssignTransformer(ast.NodeTransformer):
                 conditions.append(ast.BoolOp(op = ast.And(),
                                              values = [ast.Call(func = ast.Name(id='hasattr', ctx=ast.Load()),
                                                                 args = [load_target, ast.Constant('_assign_')]),
-                                                       ast.BoolOp(op = ast.Or(),
-                                                                  values = [ast.BoolOp(op = ast.And(),
-                                                                                       values = [ast.Call(func = ast.Name(id='hasattr', ctx=ast.Load()),
-                                                                                                          args = [load_target.value, ast.Constant('__dict__')]),
-                                                                                                 ast.Compare(left = ast.Constant(load_target.attr),
-                                                                                                             ops = [ast.In()],
-                                                                                                             comparators = [ast.Attribute(value = load_target.value,
-                                                                                                                                          attr = "__dict__",
-                                                                                                                                          ctx = ast.Load())
-                                                                                                                           ]
-                                                                                                             )
-                                                                                                ]
-                                                                                       ),
-                                                                            ast.Call(func = ast.Name(id = "hasattr", ctx = ast.Load()),
-                                                                                     args = [ast.Attribute(value = ast.Call(func = ast.Name(id = "type", ctx = ast.Load()),
-                                                                                                                            args = [load_target.value]),
-                                                                                                           attr = load_target.attr,
-                                                                                                           ctx = ast.Load()
-                                                                                                           ),
-                                                                                             ast.Constant("__get__")
-                                                                                            ]
-                                                                                    )
-                                                                           ]
-                                                                 )
+                                                       ast.Call(func = ast.Name(id='hasattr', ctx=ast.Load()),
+                                                                args = [load_target.value, ast.Constant('__dict__')]),
+                                                       ast.Compare(left = ast.Constant(load_target.attr),
+                                                                   ops = [ast.In()],
+                                                                   comparators = [ast.Attribute(value = load_target.value,
+                                                                                                attr = "__dict__",
+                                                                                                ctx = ast.Load())
+                                                                                 ]
+                                                                   )
                                                       ]
                                             )
                                  )
@@ -95,37 +80,23 @@ class AssignTransformer(ast.NodeTransformer):
             if type(target) != ast.Attribute:
                 condition = ast.Call(func = ast.Name(id='hasattr', ctx=ast.Load()),
                                      args = [load_target, ast.Constant('_assign_')])
-            else:
+            else:               
                 condition = ast.BoolOp(op = ast.And(),
                                        values = [ast.Call(func = ast.Name(id='hasattr', ctx=ast.Load()),
                                                           args = [load_target, ast.Constant('_assign_')]),
-                                                 ast.BoolOp(op = ast.Or(),
-                                                            values = [ast.BoolOp(op = ast.And(),
-                                                                                 values = [ast.Call(func = ast.Name(id='hasattr', ctx=ast.Load()),
-                                                                                                    args = [load_target.value, ast.Constant('__dict__')]),
-                                                                                           ast.Compare(left = ast.Constant(load_target.attr),
-                                                                                                       ops = [ast.In()],
-                                                                                                       comparators = [ast.Attribute(value = load_target.value,
-                                                                                                                                    attr = "__dict__",
-                                                                                                                                    ctx = ast.Load())
-                                                                                                                     ]
-                                                                                                      )
-                                                                                          ]
-                                                                                ),
-                                                                      ast.Call(func = ast.Name(id = "hasattr", ctx = ast.Load()),
-                                                                               args = [ast.Attribute(value = ast.Call(func = ast.Name(id = "type", ctx = ast.Load()),
-                                                                                                                      args = [load_target.value]),
-                                                                                                     attr = load_target.attr,
-                                                                                                     ctx = ast.Load()
-                                                                                                    ),
-                                                                                       ast.Constant("__get__")
-                                                                                      ]
-                                                                              )
-                                                                     ]
-                                                           )
+                                                 ast.Call(func = ast.Name(id='hasattr', ctx=ast.Load()),
+                                                          args = [load_target.value, ast.Constant('__dict__')]),
+                                                 ast.Compare(left = ast.Constant(load_target.attr),
+                                                             ops = [ast.In()],
+                                                             comparators = [ast.Attribute(value = load_target.value,
+                                                                                          attr = "__dict__",
+                                                                                          ctx = ast.Load())
+                                                                           ]
+                                                             )
                                                 ]
                                       )
-                                                             
+                                 
+            
             new_node = ast.If(test = ast.Constant(True),
                               body = [ast.Try(body = [ast.Expr(load_target)],
                                               handlers = [ast.ExceptHandler(None,
