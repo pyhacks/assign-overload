@@ -75,3 +75,5 @@ These variables are internally used by the library and they are documented here 
 # Limitations
 Unpacking during assignment and the walrus operator are not supported. 
 If you attempt to call assign_overload.patch_and_reload_module() from a module using these features, you will face an error.
+Additionally, for classes, ```__slots__``` mechanism is not supported. 
+```_assign_``` function won't be called while assigning to a slot of an object even if the slot holds an object whose class defines ```_assign_```.
